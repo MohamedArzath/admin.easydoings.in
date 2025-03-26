@@ -1,48 +1,98 @@
-<x-guest-layout>
-    <x-authentication-card>
-        <x-slot name="logo">
-            <x-authentication-card-logo />
-        </x-slot>
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <base href="./">
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+        <title>Login to Admin Easydoings.in</title>
 
-        <x-validation-errors class="mb-4" />
+        <link rel="manifest" href="assets/favicon/manifest.json">
+        <meta name="msapplication-TileColor" content="#ffffff">
+        <meta name="theme-color" content="#ffffff">
+        <!-- Vendors styles-->
+        <link rel="stylesheet" href="vendors/simplebar/css/simplebar.css">
+        <!-- Main styles for this application-->
+        <link href="css/style.css" rel="stylesheet">
+        <!-- We use those styles to show code examples, you should remove them in your application.-->
+        <link href="css/examples.css" rel="stylesheet">
+        <script src="js/config.js"></script>
+        <script src="js/color-modes.js"></script>
+    </head>
+    <body>
+        <div class="min-vh-100 d-flex flex-row align-items-center">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <div class="card-group d-block d-md-flex row">
+                            <div class="card col-md-7 p-4 mb-0">
+                                <div class="card-body">
+                                    @if ($errors->any())
+                                        <div >
+                                            <div class="font-medium text-red-600">{{ __('Whoops! Something went wrong.') }}</div>
 
-        @session('status')
-            <div class="mb-4 font-medium text-sm text-green-600">
-                {{ $value }}
+                                            <ul class="mt-3 list-disc list-inside text-sm text-red-600">
+                                                @foreach ($errors->all() as $error)
+                                                    <li class="text-danger font-weight-bold">{{ $error }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    @endif
+
+                                    @session('status')
+                                        <div class="mb-4 font-medium text-sm text-green-600">
+                                            {{ $value }}
+                                        </div>
+                                    @endsession
+                                    <h1>Login</h1>
+                                    <p class="text-body-secondary">Sign In to your account</p>
+                                    <form method="POST" action="{{ route('login') }}">
+                                    @csrf
+                                        <div class="input-group mb-3">
+                                            <span class="input-group-text">
+                                                <svg class="icon">
+                                                    <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-user"></use>
+                                                </svg>
+                                            </span>
+                                            <input class="form-control" id="email" type="email" name="email" :value="old('email')" required autofocus autocomplete="username">
+                                        </div>
+                                        <div class="input-group mb-4">
+                                            <span class="input-group-text">
+                                                <svg class="icon">
+                                                    <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-lock-locked"></use>
+                                                </svg>
+                                            </span>
+                                            <input class="form-control" id="password" type="password" name="password" required autocomplete="current-password">
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <button class="btn btn-primary px-4" type="submit   ">Login</button>
+                                            </div> 
+                                        </div>
+                                    </form>
+                                </div>
+                            </div> 
+                        </div>
+                    </div>
+                </div>
             </div>
-        @endsession
-
-        <form method="POST" action="{{ route('login') }}">
-            @csrf
-
-            <div>
-                <x-label for="email" value="{{ __('Email') }}" />
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
-            </div>
-
-            <div class="mt-4">
-                <x-label for="password" value="{{ __('Password') }}" />
-                <x-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="current-password" />
-            </div>
-
-            <div class="block mt-4">
-                <label for="remember_me" class="flex items-center">
-                    <x-checkbox id="remember_me" name="remember" />
-                    <span class="ms-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
-                </label>
-            </div>
-
-            <div class="flex items-center justify-end mt-4">
-                @if (Route::has('password.request'))
-                    <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
-                        {{ __('Forgot your password?') }}
-                    </a>
-                @endif
-
-                <x-button class="ms-4">
-                    {{ __('Log in') }}
-                </x-button>
-            </div>
-        </form>
-    </x-authentication-card>
-</x-guest-layout>
+        </div>
+        <!-- CoreUI and necessary plugins-->
+        <script src="vendors/@coreui/coreui-pro/js/coreui.bundle.min.js"></script>
+        <script src="vendors/simplebar/js/simplebar.min.js"></script>
+        <script src="vendors/i18next/js/i18next.min.js"></script>
+        <script src="vendors/i18next-http-backend/js/i18nextHttpBackend.js"></script>
+        <script src="vendors/i18next-browser-languagedetector/js/i18nextBrowserLanguageDetector.js"></script>
+        <script src="js/i18next.js"></script>
+        <script>
+            const header = document.querySelector('header.header');
+            
+            document.addEventListener('scroll', () => {
+              if (header) {
+                header.classList.toggle('shadow-sm', document.documentElement.scrollTop > 0);
+              }
+            });
+        </script>
+        <script></script>
+    </body>
+</html>
