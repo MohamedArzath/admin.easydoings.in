@@ -33,7 +33,7 @@ class BusinessControllerOg extends Controller
         $headers = [
             'Content-Type' => 'application/json',
             'x-rapidapi-host' => 'local-business-data.p.rapidapi.com',
-            'x-rapidapi-key' => '2889294fdcmsh775cdfb44393378p1590dcjsn1e8726f88b5e', 
+            'x-rapidapi-key' => '6de7b1bde2msh7793091e0d46c68p1ea77cjsn105c9ca64c2f', 
         ];
         
         foreach ($categories as $category) {
