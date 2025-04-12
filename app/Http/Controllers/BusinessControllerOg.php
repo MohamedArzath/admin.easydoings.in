@@ -99,10 +99,12 @@ class BusinessControllerOg extends Controller
     public function insertData($businesses,$fileName,$category)
     {
        
-        foreach ($businesses as $business) {
+        foreach ($businesses as $key => $business) {
 
             // if ($business['business_status'] == 'OPEN') {
-
+                if($key > 2) {
+                    break;
+                }
                 $exists = Business::where('name', $business['name'])->exists();
                 if ($exists) {
                     continue;
