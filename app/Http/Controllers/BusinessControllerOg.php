@@ -25,7 +25,17 @@ class BusinessControllerOg extends Controller
         
         $city = "Mumbai, MH, India"; 
         
-        $categories = Category::with('sector')->where('category_status', 'published')->orderByRaw('CASE WHEN cat_priority = 0 THEN 1 ELSE 0 END, cat_priority')->get();
+        $categories = Category::with('sector')
+            ->whereNotIn('name', [
+                'occupational therapists',
+                'interior designers',
+                'fertility clinics',
+                'homeopathic clinics',
+                'counseling centre'
+            ])
+            ->where('category_status', 'published')
+            ->orderByRaw('CASE WHEN cat_priority = 0 THEN 1 ELSE 0 END, cat_priority')
+            ->get();
 
         // return $categories;
 
