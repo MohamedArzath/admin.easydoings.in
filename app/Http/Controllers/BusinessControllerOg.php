@@ -25,7 +25,7 @@ class BusinessControllerOg extends Controller
         
         $city = "Mumbai, MH, India"; 
         
-        $categories = Category::with('sector')->where('category_status', 'published')->orderByRaw('CASE WHEN cat_priority = 0 THEN 1 ELSE 0 END, cat_priority')->limit(1)->get();
+        $categories = Category::with('sector')->where('category_status', 'published')->orderByRaw('CASE WHEN cat_priority = 0 THEN 1 ELSE 0 END, cat_priority')->get();
 
         // return $categories;
 
@@ -102,9 +102,9 @@ class BusinessControllerOg extends Controller
         foreach ($businesses as $key => $business) {
 
             // if ($business['business_status'] == 'OPEN') {
-                if($key > 2) {
-                    break;
-                }
+                // if($key > 2) {
+                //     break;
+                // }
                 $exists = Business::where('name', $business['name'])->exists();
                 if ($exists) {
                     continue;
