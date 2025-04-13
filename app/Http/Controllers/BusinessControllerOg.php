@@ -49,6 +49,7 @@ class BusinessControllerOg extends Controller
             ->get();
 
         // return $categories;
+return $destinationPath =Storage::path("rapidapi/businesses/$fileName");
 
         $url = 'https://local-business-data.p.rapidapi.com/search';
         $headers = [
@@ -63,7 +64,7 @@ class BusinessControllerOg extends Controller
             $cleanCity = str_replace([', ',' '], '_', strtolower($city));
             $fileName = "{$cleanCategory}_{$cleanCity}.json";
 
-            $destinationPath = public_path("business_images/rapidapi/businesses/$fileName");
+            $destinationPath = public_path("rapidapi/businesses/$fileName");
             if (file_exists($destinationPath)) {
                 continue;
             }
