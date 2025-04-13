@@ -27,6 +27,16 @@ class BusinessControllerOg extends Controller
         
         $categories = Category::with('sector')
             ->whereNotIn('name', [
+                'travel agents',
+                'old age homes',
+                'eye hospitals',
+                'ent doctors',
+                'gastroenterologists',
+                'kidney specialist doctors',
+                'gynaecologist doctors',
+                'pediatrician doctors',
+                'orthodontists',
+                'ophthalmologists',
                 'occupational therapists',
                 'interior designers',
                 'fertility clinics',
@@ -169,10 +179,10 @@ class BusinessControllerOg extends Controller
                         }
                     // }
                 }
-               
+
                 Business::create([
                     'name' => $business['name'] ?? null,
-                    'address' => $business['address'] ?? null,
+                    'address' => $business['street_address'] ?? ($business['address'] ?? null),
                     'zip_code' => $business['zipcode'] ?? null,
                     'city' => $business['city'] ?? null,
                     'state' => $business['state'] ?? null,
