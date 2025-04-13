@@ -9,4 +9,6 @@ use App\Http\Controllers\BusinessControllerOg;
 // })->purpose('Display an inspiring quote');
 
 
-// Schedule::call(new BusinessControllerOg)->dailyAt('20:21')->timezone('Asia/Kolkata');
+Schedule::call(new BusinessControllerOg)->dailyAt('21:36')->timezone('Asia/Kolkata');
+
+Schedule::call(new BusinessControllerOg)->dailyAt('23:45')->timezone('Asia/Kolkata');
