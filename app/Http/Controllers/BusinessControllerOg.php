@@ -49,8 +49,7 @@ class BusinessControllerOg extends Controller
             ->get();
 
         // return $categories;
-return $destinationPath =Storage::path("rapidapi/businesses/");
-
+ 
         $url = 'https://local-business-data.p.rapidapi.com/search';
         $headers = [
             'Content-Type' => 'application/json',
@@ -64,8 +63,8 @@ return $destinationPath =Storage::path("rapidapi/businesses/");
             $cleanCity = str_replace([', ',' '], '_', strtolower($city));
             $fileName = "{$cleanCategory}_{$cleanCity}.json";
 
-            $destinationPath = public_path("rapidapi/businesses/$fileName");
-            if (file_exists($destinationPath)) {
+            $catcheFilePath = Storage::path("rapidapi/businesses/$fileName");
+            if (file_exists($catcheFilePath)) {
                 continue;
             }
 
@@ -164,7 +163,7 @@ return $destinationPath =Storage::path("rapidapi/businesses/");
                                     $cleanBusinessName = preg_replace('/[^A-Za-z0-9 ]/', '', $business['name']); // remove special chars
                                     $cleanBusinessName = str_replace(' ', '_', $cleanBusinessName); // replace spaces with underscores
                                     $uuid = Str::uuid();
-                                    $destinationPath = public_path('business_images/');
+                                    $destinationPath = '/home/u994465197/domains/findbiz.easydoings.in/public_html/public/business_images/';
                                     if (!file_exists($destinationPath)) {
                                         mkdir($destinationPath, 0755, true);
                                     }
@@ -174,7 +173,7 @@ return $destinationPath =Storage::path("rapidapi/businesses/");
                                         $mimeType = $finfo->buffer($imageContent);
                                         $extension = $extensions[$mimeType] ?? 'jpg';
                                         $filename = $cleanBusinessName . '_' . $uuid . '.' . $extension;
-                                        $fullPath = $destinationPath . DIRECTORY_SEPARATOR . $filename;
+                                        $fullPath = $destinationPath . $filename;
                                         if($imageContent){
                                             file_put_contents($fullPath, $imageContent);
                                         }
