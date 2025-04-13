@@ -23,7 +23,7 @@ class BusinessControllerOg extends Controller
     public function fetchData()
     {
         
-        $city = "New Delhi, India"; 
+        $city = "Bengaluru, India"; 
         
         $categories = Category::with('sector')
             // ->whereNotIn('name', [
@@ -44,10 +44,11 @@ class BusinessControllerOg extends Controller
             //     'counseling centre'
             // ])
             ->where('category_status', 'published')
-            ->orderByRaw('CASE WHEN cat_priority = 0 THEN 1 ELSE 0 END, cat_priority')
+            ->orderBy('desc')
+            // ->orderByRaw('CASE WHEN cat_priority = 0 THEN 1 ELSE 0 END, cat_priority')
             ->get();
 
-        // return $categories;
+        return $categories;
 
         $url = 'https://local-business-data.p.rapidapi.com/search';
         $headers = [
@@ -65,7 +66,7 @@ class BusinessControllerOg extends Controller
                 "limit" => 500,
                 "region" => "in",
                 "language" => "en",
-                "coordinates" => "28.6139, 77.2088",
+                "coordinates" => "12.9716, 77.5946",
                 "zoom" => 13,
                 "dedup" => true,
                 "extract_emails_and_contacts"=>true,
