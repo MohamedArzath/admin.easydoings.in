@@ -59,6 +59,15 @@ class BusinessControllerOg extends Controller
         
         foreach ($categories as $category) {
 
+            $cleanCategory = str_replace(' ', '_', strtolower($category->name));
+            $cleanCity = str_replace([', ',' '], '_', strtolower($city));
+            $fileName = "{$cleanCategory}_{$cleanCity}.json";
+
+            $destinationPath = public_path("business_images/rapidapi/businesses/$fileName");
+            if (file_exists($destinationPath)) {
+                continue;
+            }
+
             $data = [
                 "queries" => [
                     "$category->name in $city",
@@ -81,9 +90,7 @@ class BusinessControllerOg extends Controller
             if ($response->status() === 200) {
                 $businesses = $response->json();
 
-                $cleanCategory = str_replace(' ', '_', strtolower($category->name));
-                $cleanCity = str_replace([', ',' '], '_', strtolower($city));
-                $fileName = "{$cleanCategory}_{$cleanCity}.json";
+                
                 Storage::put("rapidapi/businesses/$fileName", json_encode($businesses, JSON_PRETTY_PRINT));
 
                 $businesses = $businesses['data'];
