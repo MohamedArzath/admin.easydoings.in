@@ -44,7 +44,7 @@ class BusinessControllerOg extends Controller
             //     'counseling centre'
             // ])
             ->where('category_status', 'published')
-            ->orderBy('desc')
+            ->orderBy('id', 'desc')
             // ->orderByRaw('CASE WHEN cat_priority = 0 THEN 1 ELSE 0 END, cat_priority')
             ->get();
 
