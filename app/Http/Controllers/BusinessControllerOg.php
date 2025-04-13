@@ -49,7 +49,7 @@ class BusinessControllerOg extends Controller
             ->get();
 
         // return $categories;
-return $destinationPath =Storage::path("rapidapi/businesses/$fileName");
+return $destinationPath =Storage::path("rapidapi/businesses/");
 
         $url = 'https://local-business-data.p.rapidapi.com/search';
         $headers = [
