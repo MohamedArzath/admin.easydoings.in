@@ -23,26 +23,26 @@ class BusinessControllerOg extends Controller
     public function fetchData()
     {
         
-        $city = "Mumbai, MH, India"; 
+        $city = "New Delhi, India"; 
         
         $categories = Category::with('sector')
-            ->whereNotIn('name', [
-                'travel agents',
-                'old age homes',
-                'eye hospitals',
-                'ent doctors',
-                'gastroenterologists',
-                'kidney specialist doctors',
-                'gynaecologist doctors',
-                'pediatrician doctors',
-                'orthodontists',
-                'ophthalmologists',
-                'occupational therapists',
-                'interior designers',
-                'fertility clinics',
-                'homeopathic clinics',
-                'counseling centre'
-            ])
+            // ->whereNotIn('name', [
+            //     'travel agents',
+            //     'old age homes',
+            //     'eye hospitals',
+            //     'ent doctors',
+            //     'gastroenterologists',
+            //     'kidney specialist doctors',
+            //     'gynaecologist doctors',
+            //     'pediatrician doctors',
+            //     'orthodontists',
+            //     'ophthalmologists',
+            //     'occupational therapists',
+            //     'interior designers',
+            //     'fertility clinics',
+            //     'homeopathic clinics',
+            //     'counseling centre'
+            // ])
             ->where('category_status', 'published')
             ->orderByRaw('CASE WHEN cat_priority = 0 THEN 1 ELSE 0 END, cat_priority')
             ->get();
@@ -63,9 +63,9 @@ class BusinessControllerOg extends Controller
                     "$category->name in $city",
                 ],
                 "limit" => 500,
-                "region" => "us",
+                "region" => "in",
                 "language" => "en",
-                "coordinates" => "38.447030, -101.547385",
+                "coordinates" => "28.6139, 77.2088",
                 "zoom" => 13,
                 "dedup" => true,
                 "extract_emails_and_contacts"=>true,
@@ -182,11 +182,11 @@ class BusinessControllerOg extends Controller
 
                 Business::create([
                     'name' => $business['name'] ?? null,
-                    'address' => $business['street_address'] ?? ($business['address'] ?? null),
-                    'zip_code' => $business['zipcode'] ?? null,
-                    'city' => $business['city'] ?? null,
-                    'state' => $business['state'] ?? null,
-                    'country' => 'US',
+                    'address' => ($business['street_address'] ? Str::limit($business['street_address'], 200) :  ($business['address'] ? Str::limit($business['address'], 200) : null) ),
+                    'zip_code' => ($business['zipcode'] ? Str::limit($business['zipcode'], 200) : null),
+                    'city' => ($business['city'] ? Str::limit($business['city'], 200) : null),
+                    'state' => ($business['state'] ? Str::limit($business['state'], 200) : null),
+                    'country' => 'India',
                     'category_id' => $category->id,
                     'sector_id' => $category->sector->id,
                     'phone_1' => $business['phone_number'] ?? null,
