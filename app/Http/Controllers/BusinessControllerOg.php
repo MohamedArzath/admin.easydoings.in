@@ -23,8 +23,9 @@ class BusinessControllerOg extends Controller
     public function fetchData()
     {
         
-        $city = "Bengaluru, India"; 
-        
+        $city = "Mumbai, MH, India"; 
+        // change default state city below
+
         $categories = Category::with('sector')
             // ->whereNotIn('name', [
             //     'travel agents',
@@ -48,7 +49,7 @@ class BusinessControllerOg extends Controller
             ->orderByRaw('CASE WHEN cat_priority = 0 THEN 1 ELSE 0 END, cat_priority')
             ->get();
 
-        // return $categories;
+        return $categories;
  
         $url = 'https://local-business-data.p.rapidapi.com/search';
         $headers = [
@@ -75,7 +76,7 @@ class BusinessControllerOg extends Controller
                 "limit" => 500,
                 "region" => "in",
                 "language" => "en",
-                "coordinates" => "12.9716, 77.5946",
+                "coordinates" => "19.0760, 72.8777",
                 "zoom" => 13,
                 "dedup" => true,
                 "extract_emails_and_contacts"=>true,
@@ -192,8 +193,8 @@ class BusinessControllerOg extends Controller
                     'name' => $business['name'] ?? null,
                     'address' => ($business['street_address'] ? Str::limit($business['street_address'], 200) :  ($business['address'] ? Str::limit($business['address'], 200) : null) ),
                     'zip_code' => ($business['zipcode'] ? Str::limit($business['zipcode'], 200) : null),
-                    'city' => ($business['city'] ? Str::limit($business['city'], 200) : null),
-                    'state' => ($business['state'] ? Str::limit($business['state'], 200) : null),
+                    'city' => ($business['city'] ? Str::limit($business['city'], 200) : 'Mumbai'),
+                    'state' => ($business['state'] ? Str::limit($business['state'], 200) : 'Maharashtra'),
                     'country' => 'India',
                     'category_id' => $category->id,
                     'sector_id' => $category->sector->id,
