@@ -49,7 +49,7 @@ class BusinessControllerOg extends Controller
             ->orderByRaw('CASE WHEN cat_priority = 0 THEN 1 ELSE 0 END, cat_priority')
             ->get();
 
-        return $categories;
+        // return $categories;
  
         $url = 'https://local-business-data.p.rapidapi.com/search';
         $headers = [
